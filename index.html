@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/1D42C2C6-1753-944C-A167-A3A030FA4CA4/main.js" charset="UTF-8"></script></head>
+<body>
+	<div id="container"></div>
+	<script src="template-web.js"></script>
+<!-- 写法一： -->
+	<script id="template" type="text/html">
+		<h2>{{title}}</h2><br>
+		<p>each语句中,each 数组 value index,有固定顺序</p>
+		<ul>
+			{{each list value index}}
+			<li>索引：{{index}},值：{{value.name}}</li>
+			{{/each}}
+		</ul><br>
+		{{if b}}
+		<p>if语句的使用</p>
+		{{/if}}<br>
+		<p>直接引入类html字符串(正常使用)：{{sHtml}},加 # 可以使其变成真正的html：{{#sHtml}}</p>
+		<hr>
+		数据：{{$data}}
+	</script>
+
+<!-- 写法二 -->
+	<script id="template" type="text/html">
+		<h2><%=title%></h2><br>
+		<ul>
+			<%for(var i=0,len=list.length;i<len;i++){%>
+			<li>索引：<%=i%>,值：<%=list[i]%></li>
+			<%}%>
+		</ul><br>
+		<%if(b){%>
+		<p>if语句的使用</p>
+		<%}%><br>
+		<p>直接引入类html字符串(正常使用)：<%=sHtml%>,加 # 可以使其变成真正的html：<%=#sHtml%></p>
+		<hr>
+		数据：<%=$data%>
+	</script>
+
+	<script>
+		var data={
+			title:'template-web.js的使用',
+			b:true,
+			list:[{name:'list11'},{name:'list22'},{name:'list33'}],
+			sHtml:'<em style="color:#f00;">嘿嘿嘿</em>'
+		}
+		/**
+		 * @param
+		 * id,{}
+		 */
+		var html=template('template',data);
+		document.getElementById('container').innerHTML=html;
+	</script>
+</body>
+</html>
